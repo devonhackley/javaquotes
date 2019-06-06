@@ -12,7 +12,7 @@ public class App {
 
     public static void main(String[] args) {
             Gson gson = new Gson();
-            String path = "/Users/dhackle/codefellows/401/labs/lab8/javaquotes/src/main/resources/recentquotes.json";
+            String path = "src/main/resources/recentquotes.json";
             QuoteReader read = new QuoteReader(path);
             read.readFromFile();
 

@@ -6,14 +6,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 public class QuoteReaderTest {
     @Test public void testQuoteReaderConstructor(){
-        String path = "/Users/dhackle/codefellows/401/labs/lab8/javaquotes/src/test/resources/test.json";
+        String path = "src/main/resources/recentquotes.json";
         QuoteReader libraryToTest = new QuoteReader(path);
 
         assertEquals(path, libraryToTest.getPath());
     }
 
     @Test public void testQuoteReaderReadFile(){
-        String path = "/Users/dhackle/codefellows/401/labs/lab8/javaquotes/src/test/resources/test.json";
+        String path = "src/main/resources/recentquotes.json";
         QuoteReader libraryToTest = new QuoteReader(path);
 
         libraryToTest.readFromFile();
@@ -21,10 +21,36 @@ public class QuoteReaderTest {
         assertNotNull(libraryToTest.getReader());
     }
     @Test public void testQuoteReaderReadFileFileNotFound(){
-        String path = "/Users/dhackle/codefellows/401/labs/lab8/javaquotes/src/test/resources/blarg.json";
+        String path = "";
         QuoteReader libraryToTest = new QuoteReader(path);
 
         libraryToTest.readFromFile();
         assertNull(libraryToTest.getReader());
     }
+    @Test public void testQuoteReaderSetQuotes(){
+        String path = "src/main/resources/recentquotes.json";
+        QuoteReader libraryToTest = new QuoteReader(path);
+
+        libraryToTest.setQuotesArray();
+        assertNotNull(libraryToTest.getQuotesList());
+    }
+    @Test public void testQuoteReaderGrabRandomQuote(){
+        String path = "src/main/resources/recentquotes.json";
+        String url = "http://swquotesapi.digitaljedi.dk/api/SWQuote/RandomStarWarsQuote";
+        QuoteReader libraryToTest = new QuoteReader(path);
+
+        String test = libraryToTest.grabRandomQuote(url);
+        assertNotNull(test);
+        assertNotNull(libraryToTest.getQuotesList());
+    }
+    @Test public void testQuoteReaderGrabRandomQuoteNoURL(){
+        String path = "src/main/resources/recentquotes.json";
+        String url = "";
+        QuoteReader libraryToTest = new QuoteReader(path);
+        libraryToTest.setQuotesArray();
+
+        String test = libraryToTest.grabRandomQuote(url);
+        assertNotNull(test);
+    }
+
 }

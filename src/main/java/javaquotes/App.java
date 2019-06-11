@@ -3,22 +3,19 @@
  */
 package javaquotes;
 
-import com.google.gson.Gson;
+
+import java.net.URL;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
 
     public static void main(String[] args) {
-            Gson gson = new Gson();
             String path = "src/main/resources/recentquotes.json";
             QuoteReader read = new QuoteReader(path);
-            read.readFromFile();
+            // set back up quotes
+            read.setQuotesArray();
 
-            Quote[] quotes = gson.fromJson(read.getReader(), Quote[].class);
-            Quotes qArray = new Quotes(quotes);
-
-            System.out.println(qArray.grabOneQuote());
+            //make request to api
+            String response = read.grabRandomQuote("http://swquotesapi.digitaljedi.dk/api/SWQuote/RandomStarWarsQuote");
+            System.out.println(response);
     }
 }
